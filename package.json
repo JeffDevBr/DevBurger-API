@@ -1,13 +1,31 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "build": "sucrase ./src -d ./dist --transforms imports"
+  },
+  "nodemonConfig": {
+    "execMap": {
+      "js": "sucrase-node"
+    },
+    "watch": [
+      "src"
+    ],
+    "ext": "js"
   },
   "keywords": [],
   "author": "Jefferson Boiko Lopes Gushy",
   "url": "https://github.com/JeffDevBr",
   "license": "ISC",
-  "description": "DevBurger API"
+  "description": "DevBurger API",
+  "dependencies": {
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7",
+    "sucrase": "^3.35.0"
+  }
 }
