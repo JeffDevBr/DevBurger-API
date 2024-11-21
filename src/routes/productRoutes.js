@@ -7,5 +7,6 @@ const productRoutes = new Router()
 const upload = multer(multerConfig)
 
 productRoutes.post('/products', upload.single('file'), ProductController.store)
+productRoutes.get('/products', ProductController.index);
 
 export default productRoutes
