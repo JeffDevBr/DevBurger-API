@@ -8,13 +8,13 @@ class UserController {
             const schema = Yup.object().shape({
                 name: Yup.string().required('Nome é obrigatório'),
                 email: Yup.string().email('E-mail inválido').required('E-mail é obrigatório'),
-                password_hash: Yup.string().required('Senha é obrigatória').min(6, 'A senha deve ter no mínimo 6 caracteres'),
+                password: Yup.string().required('Senha é obrigatória').min(6, 'A senha deve ter no mínimo 6 caracteres'),
                 admin: Yup.boolean()
             })
 
             await schema.validate(req.body, { abortEarly: false })
 
-            const { name, email, password_hash, admin } = req.body
+            const { name, email, password, admin } = req.body
 
             const userExists = await User.findOne({ where: { email } })
             if (userExists) {
@@ -25,7 +25,7 @@ class UserController {
                 id: v4(),
                 name,
                 email,
-                password_hash,
+                password,
                 admin,
             })
 
