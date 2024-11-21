@@ -1,5 +1,6 @@
 import express from 'express'
 import routes from './routes/index.js'  
+import xssClean from 'xss-clean'
 import './database/index.js'
 
 class App {
@@ -12,6 +13,7 @@ class App {
 
   middlewares() {
     this.app.use(express.json())
+    this.app.use(xssClean())
 
   }
 

@@ -12,13 +12,13 @@ class UserController {
                 admin: Yup.boolean()
             })
 
-            await schema.validate(req.body, { abortEarly: false });
+            await schema.validate(req.body, { abortEarly: false })
 
             const { name, email, password_hash, admin } = req.body
 
-            const userExists = await User.findOne({ where: { email } });
+            const userExists = await User.findOne({ where: { email } })
             if (userExists) {
-                return res.status(400).json({ error: 'Usuário já existe' });
+                return res.status(400).json({ error: 'Usuário já existe' })
             }
 
             const user = await User.create({
@@ -32,14 +32,14 @@ class UserController {
             return res.status(201).json({ id: user.id, name, email, admin })
         } catch (error) {
             if (error instanceof Yup.ValidationError) {
-                const errors = {};
+                const errors = {}
                 error.inner.forEach((err) => {
-                    errors[err.path] = err.message;
-                });
-                return res.status(400).json({ errors });
+                    errors[err.path] = err.message
+                })
+                return res.status(400).json({ errors })
             }
 
-            return res.status(500).json({ error: 'Erro interno do servidor ao criar usuário' });
+            return res.status(500).json({ error: 'Erro interno do servidor ao criar usuário' })
         }
     }
 }
