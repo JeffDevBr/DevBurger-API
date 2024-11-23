@@ -3,8 +3,6 @@ import userRoutes from './userRoutes.js'
 import sessionRoutes from './sessionRoutes.js'
 import productRoutes from './productRoutes.js'
 
-
-
 const routes = new Router()
 
 routes.use(userRoutes)

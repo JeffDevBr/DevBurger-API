@@ -1,5 +1,8 @@
 import * as Yup from 'yup'
+import jwt from 'jsonwebtoken'
 import User from '../models/User.js'
+import authConfig from '../../config/auth.js'
+
 
 class SessionController {
     async store(req, res) {
@@ -28,12 +31,19 @@ class SessionController {
 
         const { id, name, admin } = user
 
+        const token = jwt.sign({ id }, authConfig.secret, {
+            expiresIn: authConfig.expiresIn,
+        })
+
+
         return res.json({
             user: {
                 id,
                 name,
                 email,
                 admin,
+                token,
+
             },
 
             message: 'User authenticated successfully',
